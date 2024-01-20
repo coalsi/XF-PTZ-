@@ -9,7 +9,7 @@ pygame.joystick.init()
 print("Pygame and joystick initialized.")
 
 # Camera IP and base URL
-camera_ip = "192.168.4.244"
+camera_ip = "192.168.1.XXX"
 base_url = f"http://{camera_ip}/-wvhttp-01-/control.cgi?"
 
 # Define the dead zone threshold (adjust as needed)
