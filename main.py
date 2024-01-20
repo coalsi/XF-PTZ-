@@ -64,19 +64,19 @@ try:
         # Check for button presses
         if joystick.get_button(0):  # A button for auto focus
             auto_focus()
-            time.sleep(0.5)
+            time.sleep(0.1)
         if joystick.get_button(1):  # B button for recording
             record()
-            time.sleep(0.5)
+            time.sleep(0.1)
         if joystick.get_button(3):  # Y button for white balance auto on/off
             toggle_white_balance()
             time.sleep(0.5)
         if joystick.get_button(9):  # Y button for white balance auto on/off
             zoom_out()
-            time.sleep(0.5)
+            time.sleep(0.1)
         if joystick.get_button(10):  # Y button for white balance auto on/off
             zoom_in()
-            time.sleep(0.5)
+            time.sleep(0.1)
 
         # Check for axis positions with dead zone
         right_stick_x = joystick.get_axis(3)  # Right Stick X-axis for zoom in/out
