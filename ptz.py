@@ -19,16 +19,30 @@ Motor1.SetMicroStep('hardware', microstepping_mode)
 Motor2.SetMicroStep('hardware', microstepping_mode)
 
 # Function to calculate step delay based on joystick position
-def calculate_step_delay(axis_value):
-    # Map joystick position to step delay
-    axis_range = [-1.0, 1.0]  # Axis 5 range
-    delay_range = [0.001, 0.0000001]  # Step delay range
+def calculate_step_delay(axis_2_value, axis_5_value):
+    # Adjust the axis values to be in the range 0.0 to 2.0
+    adjusted_axis_2_value = axis_2_value + 1.0
+    adjusted_axis_5_value = axis_5_value + 1.0
+
+    # Axis range after adjustment
+    adjusted_axis_range = [0.0, 2.0]
+    delay_range = [0.0001, 0.0]  # Step delay range
+
+    # Determine which axis to use for delay calculation
+    if abs(adjusted_axis_2_value) >= 0.01:  # Priority to Axis 2
+        axis_value = adjusted_axis_2_value
+    elif abs(adjusted_axis_5_value) >= 0.01:
+        axis_value = adjusted_axis_5_value
+    else:
+        return 0.0001  # Default delay if neither axis is active
 
     # Linearly interpolate between delay_range[0] and delay_range[1]
-    fraction = (axis_value - axis_range[0]) / (axis_range[1] - axis_range[0])
+    fraction = (axis_value - adjusted_axis_range[0]) / (adjusted_axis_range[1] - adjusted_axis_range[0])
     delay = delay_range[0] + fraction * (delay_range[1] - delay_range[0])
 
     return delay
+
+# Main loop and other parts of the script remain unchanged...
 
 
 # Main loop
@@ -43,17 +57,23 @@ try:
     while True:
         pygame.event.pump()
 
-        # Control Motor 1 with Axis 0
+        # Read axis values
         axis_0_value = joystick.get_axis(0)
-        if abs(axis_0_value) >= 0.4:  # Apply dead zone to axis value
-            steps_motor1 = 1
-            Motor1.TurnStep(Dir='forward' if axis_0_value > 0 else 'backward', steps=steps_motor1, stepdelay=calculate_step_delay(joystick.get_axis(5)))
+        axis_1_value = joystick.get_axis(1)
+        axis_2_value = joystick.get_axis(2)
+        axis_5_value = joystick.get_axis(5)
+
+        step_delay = calculate_step_delay(axis_2_value, axis_5_value)
+
+        # Control Motor 1 with Axis 0
+        if abs(axis_0_value) >= 0.3:  # Apply dead zone to axis value
+            steps_motor1 = 10
+            Motor1.TurnStep(Dir='forward' if axis_0_value > 0 else 'backward', steps=steps_motor1, stepdelay=step_delay)
 
         # Control Motor 2 with Axis 1
-        axis_1_value = joystick.get_axis(1)
-        if abs(axis_1_value) >= 0.4:  # Apply dead zone to axis value
-            steps_motor2 = 1
-            Motor2.TurnStep(Dir='forward' if axis_1_value > 0 else 'backward', steps=steps_motor2, stepdelay=calculate_step_delay(joystick.get_axis(5)))
+        if abs(axis_1_value) >= 0.3:  # Apply dead zone to axis value
+            steps_motor2 = 10
+            Motor2.TurnStep(Dir='forward' if axis_1_value > 0 else 'backward', steps=steps_motor2, stepdelay=step_delay)
 
         # time.sleep(0.1)  # Adjust loop frequency as needed
 
