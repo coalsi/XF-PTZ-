@@ -76,6 +76,9 @@ def nd_less():
     requests.get(base_url + control_cmd + f"c.1.nd.filter={current_nd_value}")
     print("ND Filter decreased")
 
+def none():
+    pass
+
 # Now, nd_more() will increase the ND filter value, and nd_less() will decrease it
 
 last_zoom_command = None
@@ -131,15 +134,15 @@ try:
         if joystick.get_button(3):  # Y button for white balance auto on/off
             toggle_white_balance()
         if joystick.get_button(4):  # Y button for white balance auto on/off
-            zoom_out()
+            nd_less()
         if joystick.get_button(5):  # Y button for white balance auto on/off
-            zoom_in()
+            nd_more()
         if joystick.get_button(2): # X button for Stop Zoom
             zoom_stop()
         if joystick.get_button(10): # X button for Stop Zoom
-            nd_more()
+            none()
         if joystick.get_button(9): # X button for Stop Zoom
-            nd_less()
+            none()
         # Determine zoom direction and speed based on Y-axis value
         zoom_speed = None
         # Determine zoom direction and speed based on Y-axis value
