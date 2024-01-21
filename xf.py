@@ -9,7 +9,7 @@ pygame.joystick.init()
 print("Pygame and joystick initialized.")
 
 # Camera IP and base URL
-camera_ip = "192.168.1.XX" # REPLACE WITH CAMERA IP ADDRESS
+camera_ip = "192.168.1.1" # REPLACE WITH CAMERA IP ADDRESS
 base_url = f"http://{camera_ip}/-wvhttp-01-/"
 control_cmd = "control.cgi?"
 # video_cmd = "image.cgi?"
@@ -120,15 +120,7 @@ try:
 
     while True:
         pygame.event.pump()
-        # Axis Mappings
-        axis_0 = joystick.get_axis(0)
-        axis_1 = joystick.get_axis(1)
-        axis_2 = joystick.get_axis(2)
-        axis_3 = joystick.get_axis(3)
-        axis_4 = joystick.get_axis(4)
-        axis_5 = joystick.get_axis(5)
-
-        handle_zoom(joystick.get_axis(3))
+        handle_zoom(joystick.get_axis(4))
         time.sleep(0.1)  # Adjust loop frequency as needed
 
         # Check for button presses
@@ -138,25 +130,25 @@ try:
             record()
         if joystick.get_button(3):  # Y button for white balance auto on/off
             toggle_white_balance()
-        if joystick.get_button(9):  # Y button for white balance auto on/off
+        if joystick.get_button(4):  # Y button for white balance auto on/off
             zoom_out()
-        if joystick.get_button(10):  # Y button for white balance auto on/off
+        if joystick.get_button(5):  # Y button for white balance auto on/off
             zoom_in()
         if joystick.get_button(2): # X button for Stop Zoom
             zoom_stop()
-        if joystick.get_button(11): # X button for Stop Zoom
+        if joystick.get_button(10): # X button for Stop Zoom
             nd_more()
-        if joystick.get_button(12): # X button for Stop Zoom
+        if joystick.get_button(9): # X button for Stop Zoom
             nd_less()
         # Determine zoom direction and speed based on Y-axis value
         zoom_speed = None
         # Determine zoom direction and speed based on Y-axis value
-        if abs(axis_3) > 0.1:
-            if abs(axis_3) > 0.5:  # Maximum tilt
+        if abs(joystick.get_axis(4)) > 0.1:
+            if abs(joystick.get_axis(4)) > 0.5:  # Maximum tilt
                 zoom_speed_param = "c.1.zoom.speed.max"
             else:  # Moderate tilt
                 zoom_speed_param = "c.1.zoom.speed.min"
-            zoom_direction = "tele" if axis_3 > 0 else "wide"
+            zoom_direction = "tele" if joystick.get_axis(4) > 0 else "wide"
         else:
             zoom_speed_param = ""
             zoom_direction = "stop"
@@ -171,7 +163,7 @@ try:
             requests.get(stop_command)
 
 
-        handle_zoom(joystick.get_axis(3))  # Assuming axis 3 is the relevant axis for zoom
+        handle_zoom(joystick.get_axis(4))  # Assuming axis 3 is the relevant axis for zoom
 
         time.sleep(0.05)  # Adjust the sleep duration as needed for responsiveness
 
