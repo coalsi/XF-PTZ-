@@ -1,7 +1,7 @@
-# XF-PTZFR
+# XF-PTZ+
 
 ## Introduction
-XF-PTZFR is a Python script designed for controlling PTZ (Pan, Tilt, Zoom), Focus, Record, and more on the Canon XF605 professional video camcorder. It leverages the power of the Canon XC Platform and is optimized to run on a Raspberry Pi 4b with a Waveshare Stepper Motor Hat and Nema 17 Motors for Pan/Tilt.
+XF-PTZ+ is a Python script designed for controlling PTZ (Pan, Tilt, Zoom), Focus, Record, and more on the Canon XF605 professional video camcorder. It leverages the power of the Canon XC Platform and is optimized to run on a Raspberry Pi 4b with a Waveshare Stepper Motor Hat and Nema 17 Motors for Pan/Tilt.
 
 ## Features
 - **XF605 Control Script**: Control Zoom, Focus, Record, and ND Filter settings on the Canon XF605.
