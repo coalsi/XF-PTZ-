@@ -18,7 +18,7 @@ To use the XF605 Control Script, you will need:
 
 To use the Pan and Tilt Control Script, you will need:
 - Raspberry Pi 4b
-- Canon XF605 professional video camcorder
+- Canon XF605 professional video camcorder (XC Protocol)
 - Xbox controller or joystick (connected via USB to the Raspberry Pi)
 - Waveshare Stepper Motor Hat
 - Nema 17 Motors for Pan/Tilt
